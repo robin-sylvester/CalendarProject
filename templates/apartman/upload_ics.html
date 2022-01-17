@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload calendar form ics file{% endblock %}
+
+{% block content %}
+  <div id="upload_ics">
+  <h3>Upload calendar</h3>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}     
+    <button type="submit" class="btn btn-primary">Upload</button>
+  </form>
+  </div>
+  <div id="return_home">
+  <a href="{% url 'home' %}">Return home</a>
+  </div>
+{% endblock %}

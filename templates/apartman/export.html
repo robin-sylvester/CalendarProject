@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Export calendar by id{% endblock %}
+
+{% block content %}
+  <div id="upload_ics">
+  <h3>Export calendar</h3>
+  {% if calendars %}
+     <div> Available calendars: </div>  
+     <ul>
+     {% for calendar in calendars %}
+        <li><a href="{% url 'export_by_id' calendar.id %}">apartman_{{ calendar.id }}</a></li>
+     {% endfor %}
+     </ul>
+  {% else %}
+     There are no calendars in the system
+  {% endif %}
+  </div>
+  <div id="return_home">
+  <a href="{% url 'home' %}">Return home</a>
+  </div>
+{% endblock %}

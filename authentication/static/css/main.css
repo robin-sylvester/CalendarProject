@@ -1,0 +1,98 @@
+@charset "utf-8";
+#header {
+    border-style: none;
+    width: 1200px;
+    height: auto;
+}
+#wrapper {
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FFFFFF;
+    width: 1200px;
+}
+body {
+    background-color: #E0E0E0;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 0.9em;
+    text-align: justify;
+    color: #474747;
+}
+h1 {
+    color: #270c39;
+}
+#footer {
+    text-align: center;
+    font-size: 0.8em;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #FFFFFF;
+    border-top: thin solid #BBBBBB;
+    clear: both;
+    color: #969696;
+}
+#nav li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 1em;
+    list-style-type: none;
+    border-bottom: thin solid #e0e0e0;
+    color: #1e9d36;
+    left: 0px;
+    list-style-position: inside;
+}
+#nav li a {
+    text-decoration: none;
+}
+#leftsidebar {
+    width: 240px;
+    height: 350px;
+    float: left;
+    padding-right: 20px;
+    padding-top: 20px;
+}
+#rightsidebar {
+    float: right;
+    padding-top: 20px;
+}
+#login {
+    padding: 10px;
+    background-color: #7204aa0d;
+}
+#loginform {
+    padding: 20px;
+    border: 1px solid #b5e9956e;
+}
+#return_home {
+    margin: 20px 20px 0px 0px;
+}
+#upload_url input[name="url"] {
+    width: 900px;
+}
+#main {
+    width: 1100px;
+    float: left;
+    margin: 20px 10px 50px 10px;   
+}
+#logo {
+    padding: 10px;
+    float: left;
+}
+#top_menu {
+    float: right;
+    padding: 50px 20px 0px 0px;
+    font-size: 1.2em;
+    color: #270c39;
+}
+table.month td {
+    border: 1px solid rgb(221, 221, 221);
+    padding: 20px;
+    text-align: center;
+}
+table.month th {
+    padding: 2px 0px;
+    text-align: center;
+}
+th.month {
+    display: none;
+}

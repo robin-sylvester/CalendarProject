@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  <aside id="leftsidebar">
+  <nav id="nav">
+  <ul>
+        <li><a href="{% url 'import-calendar' %}">Import calendar</a></li>
+        <li><a href="{% url 'import-from-url' %}">Import calendar from URL</a></li>
+        <li><a href="{% url 'export' %}">Export calendar</a></li>  
+        <li><a href="{% url 'schedule' %}">View schedule</a></li>
+  </ul>
+  </nav>
+  </aside>
+  <div id="rightsidebar">
+  	Hi {{ user.username }}!
+  	<p><a href="{% url 'logout' %}">Log Out</a></p>
+        <p><a href="{% url 'empty' %}">Empty database</a></p>
+  </div>
+{% else %}
+  <div id="login">
+        <p>You are not logged in</p>
+        <a href="{% url 'login' %}">Log In</a> or
+        <a href="{% url 'signup' %}">Sign Up</a>
+  </div>
+{% endif %}
+{% endblock %}

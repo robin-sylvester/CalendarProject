@@ -1,0 +1,18 @@
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+table {
+	display: table;
+}
+th {
+        width: 130px;
+}
+table tr {
+	display: table-cell;
+}
+table tr td {
+	display: block;
+	height: 20px;
+	padding-bottom: 5px;
+}

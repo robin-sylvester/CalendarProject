@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}Schedule{% endblock %}
+
+{% block content %}
+
+<script>
+    var calendars = {{calendar|safe}}
+    var clean_dates = {{dates|safe}}
+
+    if (calendars == {}) {
+        var content = "No calendars in database";
+    } else {
+        var apartmans = calendars;
+        const apartmans_ids = Object.keys(apartmans);
+        const dates = Object.keys(apartmans[apartmans_ids[0]]);
+
+        function addOption() {
+            for (const [key, date] of Object.entries(dates)) {
+                $('#dateStart').append(new Option(date, date));
+                $('#dateEnd').append(new Option(date, date));
+            }
+        }
+
+        $(document).ready(function () {
+            addOption();
+
+            $("button").click(function () {
+                $('td').show();
+                var startDate = $('#dateStart').val();
+                var endDate = $('#dateEnd').val();
+                var filter_set = getDates(startDate, endDate);
+                var result_set = dates.filter(function (x) {
+                    return filter_set.indexOf(x) < 0
+                });
+
+                for (var i = 0; i < result_set.length; i++) {
+                    $('.' + result_set[i]).hide();
+                }
+
+                var url = $(".ajax-call").attr("data-select-attributes-url");
+                var selected_data = {};
+
+                selected_data['begin_date'] = JSON.stringify(startDate);
+                selected_data['end_date'] = JSON.stringify(endDate);
+
+                $.ajax({
+                    url: url,
+                    data: selected_data,
+                    success: function (data) {
+                        const obj = JSON.parse(data);
+                        clean_dates = obj["dates"];
+                        $("td").css("color", "black");
+                        for (let i in clean_dates) {
+                            $("td[class=" + clean_dates[i] + "]").css("color", "red");
+                        }
+                    }
+                });
+            });
+        });
+
+        function generate_table(dates, apartmans) {
+            var content = "<table>";
+
+            content += "<tr style='width=130px'>";
+            content += "<th>Date</th>";
+            for (const date of dates) {
+                if (clean_dates.includes(date))
+                    content += "<td class=" + date + " style='color:red;'>" + date + "</td>";
+                else
+                    content += "<td class=" + date + ">" + date + "</td>";
+            }
+            content += "</tr>";
+
+            for (const [key, value] of Object.entries(apartmans)) {
+                content += "<tr style='width=130px'>";
+                content += "<th>apartman_" + key + "</th>";
+                for (const [key2, value2] of Object.entries(apartmans[key])) {
+                    content += "<td class=" + key2 + ">" + apartmans[key][key2] + "</td>";
+                }
+                content += "</tr>";
+            }
+
+            content += "</table>";
+            return content;
+        }
+
+        var content = generate_table(dates, apartmans);
+
+        function getDates(startDate, stopDate) {
+            var dateArray = [];
+            var currentDate = new Date(startDate);
+            for (currentDate; currentDate <= new Date(stopDate); currentDate.setDate(currentDate.getDate() + 1)) {
+                dateArray.push(currentDate.toISOString().split('T')[0]);
+            }
+            return dateArray;
+        }
+    }
+</script>
+
+<div>
+    <div id="calendar_table">
+        <script type="text/javascript">
+            document.write(content);
+        </script>
+    </div>
+    <br/>
+    <div class="ajax-call" data-select-attributes-url="/calendars/">
+        <label for="dateStart"><select id="dateStart"></select></label>
+        <label for="dateStart"><select id="dateEnd"></select></label>
+        <button id="filterDate">Filter</button>
+    </div>
+</div>
+
+<div id="return_home">
+    <a href="{% url 'home' %}">Return home</a>
+</div>
+{% endblock %}
